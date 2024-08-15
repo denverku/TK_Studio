@@ -370,7 +370,7 @@ namespace AssetStudio.GUI
             // 
             // specifyUnityVersion
             // 
-            specifyUnityVersion.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            specifyUnityVersion.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             specifyUnityVersion.Name = "specifyUnityVersion";
             specifyUnityVersion.Size = new System.Drawing.Size(100, 23);
             // 
@@ -669,7 +669,7 @@ namespace AssetStudio.GUI
             allToolStripMenuItem.CheckOnClick = true;
             allToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             allToolStripMenuItem.Name = "allToolStripMenuItem";
-            allToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            allToolStripMenuItem.Size = new System.Drawing.Size(88, 22);
             allToolStripMenuItem.Text = "All";
             allToolStripMenuItem.Click += typeToolStripMenuItem_Click;
             // 
@@ -729,7 +729,6 @@ namespace AssetStudio.GUI
             loggedEventsMenuItem.Name = "loggedEventsMenuItem";
             loggedEventsMenuItem.Size = new System.Drawing.Size(191, 22);
             loggedEventsMenuItem.Text = "Logged events";
-            loggedEventsMenuItem.DropDown.Closing += loggedEventsMenuItem_DropDownClosing;
             loggedEventsMenuItem.DropDownClosed += loggedEventsMenuItem_DropDownClosed;
             // 
             // miscToolStripMenuItem
@@ -1241,7 +1240,7 @@ namespace AssetStudio.GUI
             // textPreviewBox
             // 
             textPreviewBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            textPreviewBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            textPreviewBox.Font = new System.Drawing.Font("Consolas", 9.75F);
             textPreviewBox.Location = new System.Drawing.Point(0, 0);
             textPreviewBox.Multiline = true;
             textPreviewBox.Name = "textPreviewBox";

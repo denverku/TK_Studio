@@ -142,6 +142,26 @@ namespace AssetStudio.GUI
             return total;
         }
 
+        private static int ExtractBlb3File(FileReader reader, string savePath)
+        {
+            StatusStripUpdate($"Decompressing {reader.FileName} ...");
+            try
+            {
+                var bundleFile = new Blb3File(reader, reader.FullPath);
+                reader.Dispose();
+                if (bundleFile.fileList.Count > 0)
+                {
+                    var extractPath = Path.Combine(savePath, reader.FileName + "_unpacked");
+                    return ExtractStreamFile(extractPath, bundleFile.fileList);
+                }
+            }
+            catch (InvalidCastException)
+            {
+                Logger.Error($"Game type mismatch, Expected {nameof(Mr0k)} but got {Game.Name} ({Game.GetType().Name}) !!");
+            }
+            return 0;
+        }
+
         private static int ExtractBlockFile(FileReader reader, string savePath)
         {
             int total = 0;
@@ -153,7 +173,11 @@ namespace AssetStudio.GUI
                 var subSavePath = Path.Combine(savePath, reader.FileName + "_unpacked");
                 var dummyPath = Path.Combine(reader.FullPath, stream.AbsolutePosition.ToString("X8"));
                 var subReader = new FileReader(dummyPath, stream, true);
-                total += ExtractBundleFile(subReader, subSavePath);
+                //total += ExtractBundleFile(subReader, subSavePath);
+                if (subReader.FileType == FileType.Blb3File)
+                    total += ExtractBlb3File(subReader, subSavePath);
+                else
+                    total += ExtractBundleFile(subReader, subSavePath);
             } while (stream.Remaining > 0);
             return total;
         }

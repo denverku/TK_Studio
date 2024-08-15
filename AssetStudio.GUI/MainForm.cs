@@ -848,6 +848,15 @@ namespace AssetStudio.GUI
                         PreviewTextAsset(m_TextAsset);
                         break;
                     case MonoBehaviour m_MonoBehaviour:
+                        if (m_MonoBehaviour.m_Script.TryGet(out var m_Script))
+                        {
+                            
+                            if (m_Script.m_ClassName == "CubismMoc")
+                            {
+                                //PreviewMoc(assetItem, m_MonoBehaviour);
+                                break;
+                            }
+                        }
                         PreviewMonoBehaviour(m_MonoBehaviour);
                         break;
                     case Font m_Font:
@@ -1102,8 +1111,30 @@ namespace AssetStudio.GUI
                 obj = m_MonoBehaviour.ToType(type);
             }
             var str = JsonConvert.SerializeObject(obj, Formatting.Indented);
+            
             PreviewText(str);
         }
+
+        /*private void PreviewMoc(AssetItem assetItem, MonoBehaviour m_MonoBehaviour)
+        {
+            using (var cubismModel = new CubismModel(m_MonoBehaviour))
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine($"SDK Version: {cubismModel.VersionDescription}");
+                if (cubismModel.Version > 0)
+                {
+                    sb.AppendLine($"Canvas Width: {cubismModel.CanvasWidth}");
+                    sb.AppendLine($"Canvas Height: {cubismModel.CanvasHeight}");
+                    sb.AppendLine($"Center X: {cubismModel.CentralPosX}");
+                    sb.AppendLine($"Center Y: {cubismModel.CentralPosY}");
+                    sb.AppendLine($"Pixel Per Unit: {cubismModel.PixelPerUnit}");
+                    sb.AppendLine($"Parameter Count: {cubismModel.ParamCount}");
+                    sb.AppendLine($"Part Count: {cubismModel.PartCount}");
+                }
+                assetItem.InfoText = sb.ToString();
+            }
+            StatusStripUpdate("Can be exported as Live2D Cubism model.");
+        }*/
 
         private void PreviewFont(Font m_Font)
         {
@@ -1440,6 +1471,10 @@ namespace AssetStudio.GUI
 
         private void PreviewTexture(DirectBitmap bitmap)
         {
+
+            //imgPreviewBox.Visible = true;
+            //imgPreviewBox.Size = new Size(768, 605);
+            //imgPreviewBox.Location = new Point(0, 0);
             imageTexture?.Dispose();
             imageTexture = bitmap;
             previewPanel.BackgroundImage = imageTexture.Bitmap;
